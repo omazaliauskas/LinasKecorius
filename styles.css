@@ -232,7 +232,8 @@ html[data-lang="lt"] .lang-en,html[data-lang="en"] .lang-lt{color:var(--muted)}
 
 /* ============ PROCESS ============ */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.step .card-img{aspect-ratio:4/3;border-radius:var(--r);margin-bottom:16px}
+.step .card-img{aspect-ratio:4/5;border-radius:var(--r);margin-bottom:16px}
+.step .card-img img{object-position:center 25%}
 .step-num{position:absolute;top:12px;left:12px;z-index:3;font-family:var(--font-d);font-size:28px;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.8)}
 .step h3{font-family:var(--font-d);font-weight:400;font-size:22px;text-transform:uppercase;letter-spacing:.02em;margin-bottom:6px}
 .step p{color:var(--muted);font-size:14px}
@@ -312,8 +313,8 @@ html[data-lang="lt"] .lang-en,html[data-lang="en"] .lang-lt{color:var(--muted)}
 /* ============ SERVICES ============ */
 .service-card{width:clamp(260px,78vw,340px);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--bg-2);transition:.3s}
 .service-card:hover{border-color:var(--acc);transform:translateY(-4px)}
-.service-card .card-img{aspect-ratio:4/3}
-.service-card .card-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1);filter:grayscale(.1)}
+.service-card .card-img{aspect-ratio:4/5}
+.service-card .card-img img{width:100%;height:100%;object-fit:cover;object-position:center 25%;transition:transform .7s cubic-bezier(.16,1,.3,1);filter:grayscale(.1)}
 .service-card:hover .card-img img{transform:scale(1.06)}
 .service-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:12px;min-height:118px}
 .service-body h3{font-family:var(--font-b);font-weight:800;font-size:18px;line-height:1.2}
