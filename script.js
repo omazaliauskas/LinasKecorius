@@ -66,8 +66,75 @@
         p.classList.toggle("hide", !show);
         if (show) { p.style.animation = "none"; void p.offsetWidth; p.style.animation = ""; p.style.animationDelay = (i % 6) * 0.04 + "s"; }
       });
+      var track = document.getElementById("products");
+      if (track) { track.scrollLeft = 0; if (track._upd) track._upd(); }
     });
   }
+
+  /* ---------- SLIDERS (arrows + drag) ---------- */
+  document.querySelectorAll("[data-slider]").forEach(function (slider) {
+    var track = slider.querySelector("[data-track]");
+    var prev = slider.querySelector("[data-prev]");
+    var next = slider.querySelector("[data-next]");
+    if (!track) return;
+    function step() {
+      var f = track.querySelector(":scope > *:not(.hide)");
+      var gap = parseInt(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 20;
+      return (f ? f.getBoundingClientRect().width : 300) + gap;
+    }
+    function upd() {
+      if (!prev || !next) return;
+      var max = track.scrollWidth - track.clientWidth - 2;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= max;
+    }
+    track._upd = upd;
+    if (prev) prev.addEventListener("click", function () { track.scrollBy({ left: -step(), behavior: "smooth" }); });
+    if (next) next.addEventListener("click", function () { track.scrollBy({ left: step(), behavior: "smooth" }); });
+    track.addEventListener("scroll", function () { window.requestAnimationFrame(upd); }, { passive: true });
+    window.addEventListener("resize", upd);
+    upd();
+    var down = false, sx = 0, sl = 0, moved = 0;
+    track.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      down = true; moved = 0; sx = e.clientX; sl = track.scrollLeft; track.classList.add("drag");
+    });
+    track.addEventListener("pointermove", function (e) {
+      if (!down) return; var dx = e.clientX - sx; moved = Math.abs(dx); track.scrollLeft = sl - dx;
+    });
+    function end(e) {
+      if (!down) return; down = false; track.classList.remove("drag");
+      if (moved > 6 && e && e.target) {
+        var link = e.target.closest("a,button");
+        if (link) { var stop = function (ev) { ev.preventDefault(); ev.stopPropagation(); };
+          link.addEventListener("click", stop, { once: true, capture: true });
+          setTimeout(function () { link.removeEventListener("click", stop, true); }, 60); }
+      }
+    }
+    track.addEventListener("pointerup", end);
+    track.addEventListener("pointerleave", end);
+    track.addEventListener("pointercancel", end);
+  });
+
+  /* ---------- INSTAGRAM REELS (click to load) ---------- */
+  document.querySelectorAll(".reel-media").forEach(function (m) {
+    var btn = m.querySelector(".reel-play");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      if (m.classList.contains("playing")) return;
+      var src = m.getAttribute("data-embed");
+      if (!src) return;
+      var f = document.createElement("iframe");
+      f.src = src;
+      f.setAttribute("allow", "autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share");
+      f.setAttribute("allowfullscreen", "");
+      f.setAttribute("scrolling", "no");
+      f.setAttribute("title", "Instagram");
+      m.appendChild(f);
+      m.classList.add("playing");
+      btn.style.display = "none";
+    });
+  });
 
   /* ---------- PRODUCT MODAL ---------- */
   var modal = document.getElementById("pmodal");
@@ -109,8 +176,22 @@
     });
   }
 
+  /* ---------- HERO VIDEO: always playing ---------- */
+  var hv = document.querySelector(".hm-video");
+  if (hv) {
+    hv.muted = true;
+    var kick = function () { var p = hv.play(); if (p && p.catch) p.catch(function () {}); };
+    hv.addEventListener("loadeddata", kick);
+    hv.addEventListener("canplay", kick);
+    kick();
+    ["touchstart", "click", "scroll", "pointerdown"].forEach(function (ev) {
+      document.addEventListener(ev, kick, { once: true, passive: true });
+    });
+    document.addEventListener("visibilitychange", function () { if (!document.hidden) kick(); });
+  }
+
   /* ---------- REVEAL ---------- */
-  var targets = document.querySelectorAll(".sec-head, .filters, .about-photo, .about-copy, .live-inner, .contact-grid, .hero-figure, .hero-copy");
+  var targets = document.querySelectorAll(".sec-head, .filters, .about-photo, .about-copy, .live-inner, .contact-grid, .reels-grid, .hero-copy");
   targets.forEach(function (t) { t.setAttribute("data-reveal", ""); });
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {

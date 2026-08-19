@@ -56,8 +56,16 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero">
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="hero-wrap">
+  <div class="hero-media" aria-hidden="true">
+    <img class="hm-side hm-left" src="assets/hero/a.jpg" alt="" fetchpriority="high">
+    <video class="hm-video" autoplay muted loop playsinline preload="auto" poster="assets/esdeta/lunar.jpg">
+      <source src="assets/hero/hero-mid.mp4" type="video/mp4">
+    </video>
+    <img class="hm-side hm-right" src="assets/hero/b.jpg" alt="">
+  </div>
+  <div class="hero-veil" aria-hidden="true"></div>
+
+  <div class="hero-inner">
     <div class="hero-copy">
       <p class="eyebrow" data-lt="Rankų darbo · Gamyba Lietuvoje" data-en="Handmade · Made in Lithuania">Rankų darbo · Gamyba Lietuvoje</p>
       <h1 class="hero-title">
@@ -75,13 +83,6 @@
         <li><b>LT</b> <span data-lt="pristatymas ir montavimas" data-en="delivery & installation">pristatymas ir montavimas</span></li>
       </ul>
     </div>
-    <figure class="hero-figure">
-      <img src="assets/esdeta/lunar.jpg" alt="Lunar — mėnulio formos sieninis šviestuvas" fetchpriority="high">
-      <figcaption>
-        <span class="hf-name">Lunar</span>
-        <span class="hf-meta" data-lt="Sieninis šviestuvas · Ø 90 cm" data-en="Wall light · Ø 90 cm">Sieninis šviestuvas · Ø 90 cm</span>
-      </figcaption>
-    </figure>
   </div>
 </section>
 
@@ -109,7 +110,12 @@
       <button class="filter" data-filter="projektai" data-lt="Projektai" data-en="Projects">Projektai</button>
     </div>
 
-    <div class="products" id="products">
+    <div class="slider" data-slider>
+      <div class="slider-ctrl">
+        <button class="arrow" data-prev type="button" aria-label="Ankstesnis">‹</button>
+        <button class="arrow" data-next type="button" aria-label="Kitas">›</button>
+      </div>
+      <div class="products slider-track" id="products" data-track>
 
       <!-- SVIESTUVAI -->
       <article class="product" data-cat="sviestuvai" data-name="Lunar" data-size="Ø 90 cm" data-price="nuo 890 €" data-img="assets/esdeta/lunar.jpg"
@@ -296,6 +302,7 @@
         </div>
       </article>
 
+      </div>
     </div>
   </div>
 </section>
@@ -321,9 +328,44 @@
   </div>
 </section>
 
+<!-- ============ INSTAGRAM REELS ============ -->
+<section class="section reels" id="instagram">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="tag" data-lt="Instagram" data-en="Instagram">Instagram</p>
+      <h2 class="sec-title" data-lt="Pamatyk gaminius judesyje" data-en="See the pieces in motion">Pamatyk gaminius judesyje</h2>
+      <p class="sec-lead" data-lt="Trumpi vaizdo įrašai iš @esdeta.lt. Paspausk ir žiūrėk tiesiog čia, arba atidaryk visą profilį Instagrame." data-en="Short videos from @esdeta.lt. Tap and watch right here, or open the full profile on Instagram.">Trumpi vaizdo įrašai iš @esdeta.lt. Paspausk ir žiūrėk tiesiog čia, arba atidaryk visą profilį Instagrame.</p>
+    </header>
+
+    <div class="reels-grid">
+      <article class="reel">
+        <div class="reel-media" style="--poster:url('assets/esdeta/moon-horizon.jpg')" data-embed="https://www.instagram.com/reel/DP1fgN2CLhg/embed/">
+          <button class="reel-play" type="button" aria-label="Groti vaizdo įrašą"><span class="rp-icon">▶</span></button>
+        </div>
+        <a class="btn btn-ghost reel-ig" href="https://www.instagram.com/reel/DP1fgN2CLhg/" target="_blank" rel="noopener">
+          <span class="i-ig" aria-hidden="true">◎</span> <span data-lt="Žiūrėti Instagram" data-en="Watch on Instagram">Žiūrėti Instagram</span>
+        </a>
+      </article>
+
+      <article class="reel">
+        <div class="reel-media" style="--poster:url('assets/esdeta/lava-moon.jpeg')" data-embed="https://www.instagram.com/reel/DbD4n9wtEip/embed/">
+          <button class="reel-play" type="button" aria-label="Groti vaizdo įrašą"><span class="rp-icon">▶</span></button>
+        </div>
+        <a class="btn btn-ghost reel-ig" href="https://www.instagram.com/reel/DbD4n9wtEip/" target="_blank" rel="noopener">
+          <span class="i-ig" aria-hidden="true">◎</span> <span data-lt="Žiūrėti Instagram" data-en="Watch on Instagram">Žiūrėti Instagram</span>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ============ SEE IT LIVE ============ -->
 <section class="section live" id="salonas">
-  <div class="live-bg" aria-hidden="true"></div>
+  <div class="live-bg" aria-hidden="true">
+    <img src="assets/esdeta/lunar.jpg" alt="">
+    <img src="assets/esdeta/moon-horizon.jpg" alt="">
+    <img src="assets/esdeta/tv-siena-2.jpeg" alt="">
+  </div>
   <div class="live-veil" aria-hidden="true"></div>
   <div class="wrap live-inner">
     <p class="tag light" data-lt="Ateik pažiūrėti gyvai" data-en="Come see it live">Ateik pažiūrėti gyvai</p>
